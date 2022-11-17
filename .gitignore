@@ -131,3 +131,9 @@ output-virtualbox-iso
 # Ignore grafanalib output
 /graphs/__pycache__/
 /graphs/*.json
+
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build
