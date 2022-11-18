@@ -11,6 +11,11 @@ scmVersion {
     nextVersion {
         suffix.set("beta")
     }
+
+    branchVersionIncrementer.putAll( [
+        "master": "incrementMinor",
+        "release/.*": "incrementPatch"
+    ])
 }
 
 group = "com.gridu.daleksandrowicz.devops"
