@@ -59,7 +59,7 @@ jobs:
   # build-test-images:
   #   runs-on: ubuntu-latest
   #   env:
-  #     GROUP: weaveworksdemos 
+  #     GROUP: weaveworksdemos
   #   strategy:
   #     matrix:
   #       repo: ["openapi", "healthcheck"]
@@ -86,7 +86,7 @@ jobs:
       - uses: actions/checkout@v2
         name: Checkout
       - name: TODO lint
-        run: grep -rnw 'TODO' . --color=auto --exclude-dir=.git
+        run: grep -rnw 'TODO:' . --color=auto --exclude-dir=.git
       - name: YAML Lint
         uses: ibiqlik/action-yamllint@v3.1.1
       - name: Shellcheck
