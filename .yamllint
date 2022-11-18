@@ -4,6 +4,9 @@ yaml-files:
   - '*.yml'
   - '.yamllint'
 
+ignore: |
+  **/helm-chart/*.yaml
+
 rules:
   braces: enable
   brackets: enable
