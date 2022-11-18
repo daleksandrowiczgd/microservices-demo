@@ -20,7 +20,7 @@ env:
 jobs:
   # Test if complete demo is in sync with individual manifests
   complete-demo-sync-check:
-    if: COMPLETE_DEMO_SYNC_CHECK_ENABLED == true
+    if: env.COMPLETE_DEMO_SYNC_CHECK_ENABLED == true
     runs-on: ubuntu-latest
     env:
       COMPLETE_DEMO_ARGS: --rm -v ${{ github.workspace }}:/workdir
@@ -38,7 +38,7 @@ jobs:
   # Test if we can successfully deploy complete-demo
   # TODO: Change GitHub action to the helm/kind-action@v1.3.0
   deployments-tests:
-    if: DEPLOYMENT_TESTS_ENABLED == true
+    if: env.DEPLOYMENT_TESTS_ENABLED == true
     needs: complete-demo-sync-check
     runs-on: ubuntu-latest
     env:
@@ -71,7 +71,7 @@ jobs:
 
   # Build openapi and healtcheck images
   build-test-images:
-    if: BUILD_TEST_IMAGES_ENABLED == true && (startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/master')
+    if: env.BUILD_TEST_IMAGES_ENABLED == true && (startsWith(github.ref, 'refs/tags/v') || github.ref == 'refs/heads/master')
     runs-on: ubuntu-latest
     env:
       GROUP: weaveworksdemos 
@@ -96,7 +96,7 @@ jobs:
         tags: ${{ env.GROUP }}/${{ matrix.repo }}:${{ github.sha }}
 
   linter:
-    if: LINTER_ENABLED == true
+    if: env.LINTER_ENABLED == true
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -109,7 +109,7 @@ jobs:
         uses: reviewdog/action-shellcheck@v1.12.0
 
   build:
-    if: BUILD_ENABLED == true
+    if: env.BUILD_ENABLED == true
     needs: linter
     runs-on: ubuntu-latest
     steps:
