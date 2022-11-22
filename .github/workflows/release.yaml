@@ -39,3 +39,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           branch: 'refs/heads/release/${{ env.CURRENT_VERSION }}'
+      - name: Check if branch was successfully created
+        run: |
+          BRANCH_CREATED=`git show-ref --verify --quiet 'refs/heads/release/${{ env.CURRENT_VERSION }}'`
+          if [ -n "$BRANCH_CREATED" ]; then
+              echo 'Branch release/${{ env.CURRENT_VERSION }} successfully created!'
+          fi
