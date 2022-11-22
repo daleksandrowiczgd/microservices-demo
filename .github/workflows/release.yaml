@@ -11,7 +11,7 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
-    name: Build and release a new version of Git tag and Docker image
+    name: Build and release a new Git tag
     steps:
       - uses: actions/checkout@v2
         name: Checkout
@@ -30,9 +30,8 @@ jobs:
           ./gradlew release \
               -Prelease.customUsername=${{ github.actor }} \
               -Prelease.customPassword=${{ github.token }}
-          CURRENT_VERSION=`./gradlew currentVersion -q -Prelease.quiet`
-      - name: Test env var output
-        run: echo "${CURRENT_VERSION}"
+          echo "CURRENT_VERSION=$(./gradlew currentVersion -q -Prelease.quiet)" >> $GITHUB_ENV
+          echo "### Version ${CURRENT_VERSION} released! :rocket:" >> $GITHUB_STEP_SUMMARY
       - name: Create release branch for a new created git tag
         if: github.ref == 'refs/heads/master'
         uses: peterjgrainger/action-create-branch@v2.2.0
