@@ -52,6 +52,9 @@ jobs:
       - uses: hashicorp/setup-terraform@v2
         with:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+      - name: Terraform Init
+        id: init
+        run: terraform init
       - name: Deploy terraform
         if: github.ref == 'refs/heads/master'
         run: terraform apply -auto-approve
