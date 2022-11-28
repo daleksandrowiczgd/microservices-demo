@@ -31,7 +31,7 @@ jobs:
               -Prelease.customUsername=${{ github.actor }} \
               -Prelease.customPassword=${{ github.token }}
           echo "CURRENT_VERSION=$(./gradlew currentVersion -q -Prelease.quiet)" >> $GITHUB_ENV
-          echo "RELEASE_BRANCH_VERSION=$(echo $CURRENT_VERSION | cut -d '.' -f -2)" >> $GITHUB_ENV
+          echo "RELEASE_BRANCH_VERSION=$(./gradlew currentVersion -q -Prelease.quiet | cut -d '.' -f -2)" >> $GITHUB_ENV
           echo "### Version ${CURRENT_VERSION} released! :rocket:" >> $GITHUB_STEP_SUMMARY
       - name: Create release branch for a new created git tag
         if: github.ref == 'refs/heads/master'
