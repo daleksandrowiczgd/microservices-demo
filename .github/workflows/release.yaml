@@ -30,7 +30,7 @@ jobs:
           ./gradlew release \
               -Prelease.customUsername=${{ github.actor }} \
               -Prelease.customPassword=${{ github.token }}
-          echo "CURRENT_VERSION=$(./gradlew currentVersion -q -Prelease.quiet)" >> $GITHUB_ENV
+          echo 'RELEASE_BRANCH_VERSION=`echo $CURRENT_VERSION | cut -d '.' -f -2`' >> $GITHUB_ENV
           echo "### Version ${CURRENT_VERSION} released! :rocket:" >> $GITHUB_STEP_SUMMARY
       - name: Create release branch for a new created git tag
         if: github.ref == 'refs/heads/master'
@@ -38,7 +38,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          branch: 'refs/heads/release/${{ env.CURRENT_VERSION }}'
+          branch: 'refs/heads/release/${{ env.RELEASE_BRANCH_VERSION }}'
 
   deploy:
     runs-on: ubuntu-latest
@@ -52,6 +52,9 @@ jobs:
       - uses: hashicorp/setup-terraform@v2
         with:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+      - name: Terraform Init
+        id: init
+        run: terraform init
       - name: Deploy terraform
         if: github.ref == 'refs/heads/master'
         run: terraform apply -auto-approve
