@@ -94,12 +94,13 @@ jobs:
 
   terraform:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./deploy/terraform
     steps:
       - uses: hashicorp/setup-terraform@v2
         with:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-      - name: Change cwd to the terraform directory
-        run: cd ./deploy/terraform
       - name: Terraform fmt
         id: fmt
         run: terraform fmt -check
