@@ -96,7 +96,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./deploy/terraform
+        working-directory: deploy/terraform
     steps:
       - uses: hashicorp/setup-terraform@v2
         with:

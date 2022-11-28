@@ -45,7 +45,7 @@ jobs:
     name: Deploy environment
     defaults:
       run:
-        working-directory: ./deploy/terraform
+        working-directory: deploy/terraform
     steps:
       - uses: actions/checkout@v2
         name: Checkout
