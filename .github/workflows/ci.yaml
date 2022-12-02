@@ -81,7 +81,7 @@ jobs:
   #       tags: ${{ env.GROUP }}/${{ matrix.repo }}:${{ github.sha }}
 
   linter:
-    uses: t1-to-t2-devops-daleksandrowicz/pipeline-modules/linter.yaml@master
+    uses: t1-to-t2-devops-daleksandrowicz/pipeline-modules/.github/workflows/linter.yaml@master
 
   build:
-    uses: t1-to-t2-devops-daleksandrowicz/pipeline-modules/gradle.yaml@master
+    uses: t1-to-t2-devops-daleksandrowicz/pipeline-modules/.github/workflows/gradle.yaml@master
