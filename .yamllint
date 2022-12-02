@@ -5,7 +5,7 @@ yaml-files:
   - '.yamllint'
 
 ignore: |
-  **/helm-chart/**/*.yaml
+  **/charts/**/*.yaml
 
 rules:
   braces: enable
