@@ -19,3 +19,7 @@
 .project
 .idea/
 *.tmproj
+
+# User defined
+charts/
+requirements.lock
