@@ -56,6 +56,11 @@ cataloguedb:
         requests:
             cpu: 100m
             memory: 300Mi
+    secret_values:
+        username: ""
+        password: ""
+        mysql_root_password: ""
+        mysql_database: ""
 
 catalogue:
     image:
