@@ -25,11 +25,21 @@ spec:
         command: ["/app"]
         args:
         - -port={{ .Values.catalogue.containerPort }}
-        - -DSN=catalogue_user:default_password@tcp(catalogue-db.{{ .Release.Namespace }}.svc.cluster.local:3306)/socksdb
+        - -DSN=$(CATALOGUE_DB_USERNAME):$(CATALOGUE_DB_USERNAME)@tcp(catalogue-db.{{ .Release.Namespace }}.svc.cluster.local:3306)/socksdb
         {{- if .Values.zipkin.enabled }}
         env:
-         - name: ZIPKIN
-           value: http://{{ .Values.zipkin.url }}:9411/api/v1/spans
+          - name: ZIPKIN
+            value: http://{{ .Values.zipkin.url }}:9411/api/v1/spans
+          - name: CATALOGUE_DB_USERNAME
+            valueFrom:
+            secretKeyRef:
+                name: catalogue-db-creds
+                key: username
+          - name: CATALOGUE_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: catalogue-db-creds
+                key: password
         {{- end }}
         resources:
 {{ toYaml .Values.catalogue.resources | indent 10 }}

@@ -20,9 +20,15 @@ spec:
         image: {{if .Values.global.registry}}{{ .Values.global.registry }}/{{end}}{{ .Values.cataloguedb.image.repo }}:{{ .Values.cataloguedb.image.tag }}
         env:
           - name: MYSQL_ROOT_PASSWORD
-            value: fake_password
+            valueFrom:
+              secretKeyRef:
+                name: catalogue-db-creds
+                key: mysql_root_password
           - name: MYSQL_DATABASE
-            value: socksdb
+            valueFrom:
+              secretKeyRef:
+                name: catalogue-db-creds
+                key: mysql_database
         ports:
         - name: mysql
           containerPort: 3306
